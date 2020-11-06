@@ -69,7 +69,6 @@
         }
 
         chatSocket.onmessage = function (e) {
-
             var data = JSON.parse(e.data);
             console.log(e);
             if (data['command'] === 'messages') {

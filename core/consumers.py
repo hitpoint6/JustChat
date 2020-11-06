@@ -70,6 +70,7 @@ class ChatConsumer(WebsocketConsumer):
         self.commands[data['command']](self, data)
         # Send message to room group
 
+    #send new messages to chat group
     def send_chat_message(self, message):
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
@@ -79,12 +80,11 @@ class ChatConsumer(WebsocketConsumer):
             }
         )
 
+    #send messages from databse to websocket
     def send_message(self, message):
         self.send(text_data=json.dumps(message))
 
-    # Receive message from room group
     def chat_message(self, event):
         message = event['message']
-
         # Send message to WebSocket
         self.send(text_data=json.dumps(message))
